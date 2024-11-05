@@ -29,3 +29,6 @@
 
 - name: 'Run playbook-all_nodes-add_Branch_Virtualization_containers_repository.yml'
   ansible.builtin.import_playbook: playbook-all_nodes-add_Branch_Virtualization_containers_repository.yml
+
+- name: 'Run playbook-all_nodes-install_distribution-container-registry.yml'
+  ansible.builtin.import_playbook: playbook-all_nodes-install_distribution-container-registry.yml
