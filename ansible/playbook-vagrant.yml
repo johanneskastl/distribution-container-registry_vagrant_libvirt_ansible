@@ -32,3 +32,6 @@
 
 - name: 'Run playbook-all_nodes-install_distribution-container-registry.yml'
   ansible.builtin.import_playbook: playbook-all_nodes-install_distribution-container-registry.yml
+
+- name: 'Run playbook-all_nodes-configure_and_start_distribution-container-registry.yml'
+  ansible.builtin.import_playbook: playbook-all_nodes-configure_and_start_distribution-container-registry.yml
