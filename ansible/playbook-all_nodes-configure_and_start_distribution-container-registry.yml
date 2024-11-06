@@ -20,7 +20,7 @@
         src: 'etc_distribution_config.yml.j2'
         dest: '/etc/distribution/config.yml'
         owner: 'root'
-        group: 'root'
+        group: 'distribution-container-registry'
         mode: '660'
       notify:
         - 'Restart the distribution-container-registry service'
