@@ -1,37 +1,42 @@
 ---
-- name: 'Configure and start distribution-container-registry'
+- name: 'Configure and start the distribution registry'
   hosts: 'all'
   gather_facts: true
   become: true
 
   handlers:
 
-    - name: 'Restart the distribution-container-registry service'
+    - name: 'Restart the registry service'
       ansible.builtin.service:
-        name: 'distribution-container-registry'
+        name: 'registry'
         state: 'restarted'
       when:
         - 'not distribution_container_registry_service_started.changed | bool'
 
   tasks:
 
-    - name: 'Create /etc/distribution/config.yml'
+    - name: 'Create /etc/registry/config.yml'
       ansible.builtin.template:
         src: 'etc_distribution_config.yml.j2'
-        dest: '/etc/distribution/config.yml'
+        dest: '/etc/registry/config.yml'
         owner: 'root'
-        group: 'distribution-container-registry'
+        group: 'registry'
         mode: '660'
       notify:
-        - 'Restart the distribution-container-registry service'
+        - 'Restart the registry service'
 
-    - name: 'Start the distribution-container-registry service'
+    - name: 'Start the registry service'
       ansible.builtin.service:
-        name: 'distribution-container-registry'
+        name: 'registry'
         state: 'started'
       register: distribution_container_registry_service_started
 
-    - name: 'Enable the distribution-container-registry service'
+    - name: 'Enable the registry service'
       ansible.builtin.service:
-        name: 'distribution-container-registry'
+        name: 'registry'
         enabled: true
+
+    - name: 'Registry URL'
+      delegate_to: 'localhost'
+      ansible.builtin.debug:
+        msg: "The Distribution container registry is reachable here: http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:5000/v2/"
