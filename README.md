@@ -23,9 +23,22 @@ Vagrantfile, please beware that this will break the Ansible provisioning.
    && git submodule update`
 1. Run `vagrant up`
 1. Log in using `vagrant ssh` and check the service status using `systemctl
-   status distribution-container-registry.service`. The default configuration
-   logs dummy logs to the systemd journal, you can check using `sudo journalctl
-   -flu distribution-container-registry.service`.
+   status registry.service`. The default configuration logs dummy logs to the
+   systemd journal, you can check using `sudo journalctl -flu registry.service`.
+1. Run `curl` against the URL, that Ansible printed out during the provisioning.
+   It looks something like `http://192.0.2.13:5000/v2/`. It should return a pair
+   of curly braces:
+
+   ```
+   $ curl http://192.0.2.13:5000/v2/
+   {}$
+   ```
+
+   (There is no linebreak after the curly braces in the response, hence your
+   prompt will be glued onto the curly braces. It is easy to miss you actually
+   got a reponse at all...)
+1. Feel free to push an image to your registry using e.g. podman, skopeo or
+   docker.
 1. Party!
 
 ## Cleaning up
