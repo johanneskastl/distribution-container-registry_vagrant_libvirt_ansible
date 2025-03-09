@@ -1,3 +1,4 @@
+---
 version: 0.1
 log:
   level: debug
@@ -5,26 +6,26 @@ log:
     service: registry
     environment: development
 storage:
-    delete:
-      enabled: true
-    cache:
-        blobdescriptor: inmemory
-    filesystem:
-        rootdirectory: /var/lib/registry
-    maintenance:
-        uploadpurging:
-            enabled: false
-    tag:
-      concurrencylimit: 8
+  delete:
+    enabled: true
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+  maintenance:
+    uploadpurging:
+      enabled: false
+  tag:
+    concurrencylimit: 8
 http:
-    addr: :5000
-    debug:
-        addr: :5001
-        prometheus:
-            enabled: true
-            path: /metrics
-    headers:
-        X-Content-Type-Options: [nosniff]
+  addr: :5000
+  debug:
+    addr: :5001
+    prometheus:
+      enabled: true
+      path: /metrics
+  headers:
+    X-Content-Type-Options: [nosniff]
 health:
   storagedriver:
     enabled: true
